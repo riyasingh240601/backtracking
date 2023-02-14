@@ -1,0 +1,28 @@
+class Solution {
+public:
+    void bck(vector<vector<int>>&ans,vector<int>&v,int target,int i,vector<int>&candidates)
+    {
+        if(i==candidates.size())
+        {
+            if(target==0)
+            {
+                ans.push_back(v);
+            }
+            return;
+        }
+        if(candidates[i]<=target)
+        {
+            v.push_back(candidates[i]);
+            bck(ans,v,target-candidates[i],i,candidates);
+            v.pop_back();
+        }
+             bck(ans,v,target,i+1,candidates);
+    }
+    vector<vector<int>> combinationSum(vector<int>& candidates, int target)
+    {
+        vector<vector<int>>ans;
+        vector<int>v;
+        bck(ans,v,target,0,candidates);
+        return ans;
+    }
+};
