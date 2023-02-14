@@ -1,0 +1,38 @@
+class Solution {
+public:
+    set<vector<int>>ans;
+   void bck(vector<int>&v,int i,vector<int>&nums)
+    {
+      if(i==nums.size())
+      {
+          ans.insert(v);
+          return;
+      }
+        for(int j=i;j<nums.size();j++)
+        {
+            if(j!=i && nums[j]==nums[j-1])
+            {
+                continue;
+            }
+            v.push_back(nums[j]);
+            bck(v,j+1,nums);
+            v.pop_back();
+            bck(v,j+1,nums);
+        }
+    }
+    vector<vector<int>> subsetsWithDup(vector<int>& nums) 
+    {
+        sort(nums.begin(),nums.end());
+       
+        vector<int>v;
+      bck(v,0,nums);
+        
+    vector<vector<int>>res;
+        for(auto x:ans)
+        {
+            res.push_back(x);
+        }
+        return res;
+        
+    }
+};
