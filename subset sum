@@ -1,0 +1,18 @@
+ void bck(vector<int>&arr,vector<int>&ans,int sum,int i)
+     {
+         if(i==arr.size())
+         {
+             ans.push_back(sum);
+             return;
+         }
+         sum+=arr[i];
+         bck(arr,ans,sum,i+1);
+         sum-=arr[i];
+         bck(arr,ans,sum,i+1);
+     }
+    vector<int> subsetSums(vector<int> arr, int N)
+    {
+        vector<int>ans;
+        bck(arr,ans,0,0);
+        return ans;
+    }
