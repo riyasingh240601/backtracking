@@ -1,0 +1,75 @@
+class Solution {
+public:
+    bool safe(int r,int c,vector<string>&v,int n)
+    {
+        //upper left
+        int row=r;
+        int col=c;
+        while(row>=0 && col>=0)
+        {
+            if(v[row][col]=='Q')
+            {
+                return false;
+            }
+            row--;
+            col--;
+        }
+        row=r;
+        col=c;
+        //left side
+        while(col>=0)
+        {
+            if(v[row][col]=='Q')
+            {
+                return false;
+            }
+            col--;
+        }
+        // lower left
+        row=r;
+        col=c;
+         while(row<n && col>=0)
+        {
+            if(v[row][col]=='Q')
+            {
+                return false;
+            }
+            row++;
+            col--;
+        }
+        return true;
+    }
+    void bck(vector<vector<string>>&ans,vector<string>&v,int col,int n)
+    {
+        if(col==n)
+        {
+            ans.push_back(v);
+        }
+        for(int row=0;row<n;row++)
+        {
+            if(safe(row,col,v,n))
+            {
+                v[row][col]='Q';
+                bck(ans,v,col+1,n);
+                v[row][col]='.';
+            }
+        }
+    }
+    vector<vector<string>> solveNQueens(int n)
+    {
+        vector<vector<string>>ans;
+        vector<string>v;
+        string str="";
+        for(int i=1;i<=n;i++)
+        {
+            str+='.';
+        }
+        for(int i=0;i<n;i++)
+        {
+            v.push_back(str);
+        }
+        bck(ans,v,0,n);
+        return ans;
+        
+    }
+};
